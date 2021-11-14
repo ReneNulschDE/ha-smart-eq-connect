@@ -9,6 +9,8 @@ Smart EQ Connect platform as a Custom Component for Home Assistant.
 
 IMPORTANT:
 
+* The component is a very early state
+
 * Please login once in the Smart EQ Connect IOS or Android app before you install this component.
 
 * Tested Countries: DE
