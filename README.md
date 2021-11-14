@@ -1,7 +1,7 @@
 
 
 # Smart EQ Connect
-[![HassFest tests](https://github.com/renenulschde/ha-smart-eq-connect/workflows/Validate%20with%20hassfest/badge.svg)]
+![HassFest tests](https://github.com/renenulschde/ha-smart-eq-connect/workflows/Validate%20with%20hassfest/badge.svg)
 
 
 
@@ -9,7 +9,7 @@ Smart EQ Connect platform as a Custom Component for Home Assistant.
 
 IMPORTANT:
 
-* The component is a very early state
+* **The component is in a very early state**
 
 * Please login once in the Smart EQ Connect IOS or Android app before you install this component.
 
