@@ -1,0 +1,56 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Component is configured already.",
+            "reauth_successful": "Reauth successful! Component reload in progress."
+        },
+        "error": {
+            "cannot_connect": "cannot_connect",
+            "invalid_auth": "invalid_auth",
+            "unknown": "unknown"
+        },
+        "step": {
+            "user": {
+                "description": "Enter your Smart EQ Connect login account (email address)",
+                "title": "Set up the Smart EQ Connect connection",
+                "data": {
+                    "username": "MB username - email address",
+                    "region": "Region"
+                }
+            },
+            "pin": {
+                "description": "You have received a PIN code via email. Please enter the PIN code (six numbers)",
+                "title": "Connection setup - PIN",
+                "data": {
+                    "password": "PIN"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "country_code": "Country Code",
+                    "locale": "Locale",
+                    "excluded_cars": "VINs excluded (comma-sep)",
+                    "pin": "Security PIN (to be created in mobile app) - Enter 0 to delete the value from the configuration",
+                    "cap_check_disabled": "Disable capabilities check",
+                    "save_files": "DEBUG ONLY: Enable save server messages to the messages folder"
+                },
+                "description": "Configure your options. Some changes require a restart of Home Assistant. You need to restart HA after PIN change.",
+                "title": "Smart EQ Connect Options"
+            }
+        },
+        "abort": {
+            "already_configured": "Component is configured already.",
+            "reauth_successful": "Reauth successful! Component reload in progress."
+        }
+    },
+    "system_health": {
+        "info": {
+            "api_endpoint_reachable": "API endpoint reachable"
+        }
+    },    
+    "title": "Smart EQ Connect"
+}

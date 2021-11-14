@@ -1,0 +1,14 @@
+{
+  "domain": "smarteqconnect",
+  "name": "Smart EQ Connect",
+  "config_flow": true,
+  "documentation": "https://github.com/ReneNulschDE/smarteqconnect",
+  "issue_tracker": "https://github.com/ReneNulschDE/smarteqconnect/issues",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": [
+    "@ReneNulschDE"
+  ],
+  "version": "0.0.1",
+  "iot_class": "cloud_pull"
+}
