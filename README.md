@@ -7,6 +7,10 @@
 
 Smart EQ Connect platform as a Custom Component for Home Assistant.
 
+
+![Screenshot Smart EQ connect in Home Assistant](https://raw.githubusercontent.com/ReneNulschDE/renenulschde.github.io/master/assets/screen_smarteq_1.png)
+
+
 IMPORTANT:
 
 * **The component is in a very early state**
