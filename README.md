@@ -95,6 +95,7 @@ logger:
 
 ### Open Items
 * Services for Preconditioning
+* HACS Integration
 
 
 ### Useful links
