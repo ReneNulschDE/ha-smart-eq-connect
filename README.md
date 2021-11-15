@@ -13,7 +13,7 @@ IMPORTANT:
 
 * Please login once in the Smart EQ Connect IOS or Android app before you install this component.
 
-* Tested Countries: DE
+* Tested Countries: DE, NL
 
 ### Installation
 * This is not a Home Assistant Add-On. It's a custom component.
