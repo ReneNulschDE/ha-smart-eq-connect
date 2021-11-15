@@ -11,7 +11,7 @@ IMPORTANT:
 
 * **The component is in a very early state**
 
-* Please login once in the Smart EQ Connect IOS or Android app before you install this component.
+* Please login once in the "smart EQ control" IOS or Android app before you install this component.
 
 * Tested Countries: DE, NL
 
