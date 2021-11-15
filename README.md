@@ -99,4 +99,4 @@ logger:
 
 ### Useful links
 
-* [Forum post](https://community.home-assistant.io/t/mercedes-me-component/41911)
+* [Forum post](https://community.home-assistant.io/t/smart-eq-connect/356866)
