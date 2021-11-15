@@ -97,7 +97,7 @@ class Client: # pylint: disable-too-few-public-methods
             if car_detail is not None:
 
                 curr = car_detail.get(json_attribute).get("data").get(option)
-                LOGGER.debug("get_car_values - option: %s - curr - %s", option,curr)
+                #LOGGER.debug("get_car_values - option: %s - curr - %s", option,curr)
                 if curr is not None:
                     
                     value = curr.get("value",-1)

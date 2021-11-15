@@ -54,7 +54,7 @@ class SmartEQBinarySensor(SmartEQEntity, BinarySensorEntity, RestoreEntity):
         if self._state is None:
             self.update()
 
-        LOGGER.debug("BinarySensor - car: %s - get is_on state for %s current _state %s", self._vin, self._internal_name, self._state)
+        #LOGGER.debug("BinarySensor - car: %s - get is_on state for %s current _state %s", self._vin, self._internal_name, self._state)
         if self._state == "INACTIVE":
             return False
         if self._state == "ACTIVE":
