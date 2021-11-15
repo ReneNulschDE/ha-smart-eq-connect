@@ -5,42 +5,28 @@ import time
 import voluptuous as vol
 
 from datetime import datetime
+from datetime import timedelta
+from typing import Any
 
 from homeassistant.config_entries import ConfigEntry, SOURCE_REAUTH
 from homeassistant.const import (
-    CONF_USERNAME,
-    EVENT_HOMEASSISTANT_STOP,
     LENGTH_KILOMETERS,
     LENGTH_MILES,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
-from homeassistant.helpers import (
-    aiohttp_client,
-    config_validation as cv,
-    discovery
-)
-from homeassistant.helpers.discovery import async_load_platform
-from homeassistant.helpers.dispatcher import (
-    async_dispatcher_connect,
-    async_dispatcher_send,
-)
+from homeassistant.helpers import aiohttp_client
 from homeassistant.helpers.entity import Entity
-from homeassistant.helpers.event import async_call_later
+from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import slugify
+
 
 from .const import (
     ATTR_MB_MANUFACTURER,
     CONF_REGION,
-    CONF_VIN,
-    CONF_TIME,
     DOMAIN,
-    DATA_CLIENT,
-    DEFAULT_CACHE_PATH,
     LOGGER,
     SMARTEQ_COMPONENTS,
-    SERVICE_REFRESH_TOKEN_URL,
-    VERIFY_SSL,
     Sensor_Config_Fields as scf
 
 )
@@ -90,6 +76,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry):
 
         masterdata = await smarteq.client.api.get_user_info()
         smarteq.client._write_debug_json_output(masterdata, "md")
+
         for car in masterdata.get("authorizations"):
 
             # Car is excluded, we do not add this
@@ -97,7 +84,8 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry):
                 continue
 
             car_details = await smarteq.client.api.get_car_details_init(car.get('fin'))
-
+            smarteq.client._write_debug_json_output(car_details, "cd")
+            
             dev_reg = await hass.helpers.device_registry.async_get_registry()
             dev_reg.async_get_or_create(
                 config_entry_id=config_entry.entry_id,
@@ -119,6 +107,15 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry):
 
         hass.data.setdefault(DOMAIN, {})
         hass.data[DOMAIN] = smarteq
+
+
+        async def async_update_data():
+            """Fetch data from API endpoint.
+
+            This is the place to pre-process the data to lookup tables
+            so entities can quickly look up their data.
+            """
+            return await smarteq.client.update()
 
         async def refresh_access_token(call) -> None:
             await smarteq.client.oauth.async_get_cached_token()
@@ -158,7 +155,12 @@ class SmartEQContext:
         self._region = region
         self.client = Client(hass=hass, session=aiohttp_client.async_get_clientsession(hass), config_entry=config_entry, region=self._region)
 
-    async def on_dataload_complete(self):
+    
+    async def update_all(self, *_: Any):
+        LOGGER.debug("SmartEQ - Cars update all")
+        await self.client.update()
+    
+    async def on_dataload_complete(self, *_: Any):
         LOGGER.info("Car Load complete - start sensor creation")
 
         await self.client.update()
@@ -171,7 +173,11 @@ class SmartEQContext:
                     )
                 )
 
+        async_track_time_interval(self._hass, self.update_all, timedelta(seconds=30))
+
         self._entry_setup_complete = True
+
+
 
 
 class SmartEQEntity(Entity):
@@ -247,19 +253,7 @@ class SmartEQEntity(Entity):
             "vin": self._vin,
         }
 
-        state = self.extend_attributes(state)
-
-        if self._attrib_name == "display_value":
-            value = self._get_car_value(
-                    self._feature_name,
-                    self._object_name,
-                    "value",
-                    None
-                )
-            if value:
-                state["original_value"] = value
-
-        for item in["distance_unit", "retrievalstatus", "timestamp", "unit"]:
+        for item in["retrievalstatus", "timestamp"]:
             value = self._get_car_value(
                     self._feature_name,
                     self._object_name,
@@ -275,14 +269,10 @@ class SmartEQEntity(Entity):
                 retrievalstatus = self._get_car_value(self._feature_name, attrib,
                                                       "retrievalstatus", "error")
 
-                if retrievalstatus == "VALID":
+                if retrievalstatus == "VALID" or retrievalstatus == 0:
                     state[attrib] = self._get_car_value(
-                        self._feature_name, attrib, "display_value", None
+                        self._feature_name, attrib, "value", "error"
                     )
-                    if not state[attrib]:
-                        state[attrib] = self._get_car_value(
-                            self._feature_name, attrib, "value", "error"
-                        )
 
                 if retrievalstatus == "NOT_RECEIVED":
                     state[attrib] = "NOT_RECEIVED"
@@ -304,7 +294,7 @@ class SmartEQEntity(Entity):
 
     @property
     def should_poll(self):
-        return False
+        return True
 
 
     def update(self):
@@ -338,7 +328,6 @@ class SmartEQEntity(Entity):
         else:
             value = getattr(self._car, attrib_name, default_value)
 
-        #LOGGER.debug("_get_car_value feature: %s, object_name: %s, attrib_name:%s, default_value:%s, value:%s)", feature, object_name, attrib_name, default_value, value)
         return value
 
     def update_callback(self):
@@ -357,58 +346,3 @@ class SmartEQEntity(Entity):
         """Entity being removed from hass."""
         self._car.remove_update_callback(self.update_callback)
 
-    def extend_attributes(self, extended_attributes):
-
-
-        def default_extender(extended_attributes):
-            return extended_attributes
-
-        def starterBatteryState(extended_attributes):
-            extended_attributes["value_short"] = starterBatteryState_values.get(self._state,["unknown", "unknown"])[0]
-            extended_attributes["value_description"] = starterBatteryState_values.get(self._state,["unknown", "unknown"])[1]
-            return extended_attributes
-
-        def ignitionstate_state(extended_attributes):
-            extended_attributes["value_short"] = ignitionstate_values.get(self._state,["unknown", "unknown"])[0]
-            extended_attributes["value_description"] = ignitionstate_values.get(self._state,["unknown", "unknown"])[1]
-            return extended_attributes
-
-        def auxheatstatus_state(extended_attributes):
-            extended_attributes["value_short"] = auxheatstatus_values.get(self._state,["unknown", "unknown"])[0]
-            extended_attributes["value_description"] = auxheatstatus_values.get(self._state,["unknown", "unknown"])[1]
-            return extended_attributes
-
-
-        attribut_extender ={
-            "starterBatteryState": starterBatteryState,
-            "ignitionstate": ignitionstate_state,
-            "auxheatstatus": auxheatstatus_state,
-        } 
-
-        ignitionstate_values = {
-            "0" :["lock", "Ignition lock"],
-            "1" :["off", "Ignition off"],
-            "2" :["accessory", "Ignition accessory"],
-            "4" :["on", "Ignition on"],
-            "5" :["start", "Ignition start"],
-        }
-        starterBatteryState_values = {
-            "0" :["green", "Vehicle ok"],
-            "1" :["yellow", "Battery partly charged"],
-            "2" :["red", "Vehicle not available"],
-            "3" :["serviceDisabled", "Remote service disabled"],
-            "4" :["vehicleNotAvalable", "Vehicle no longer available"],
-        } 
-
-        auxheatstatus_values = {
-            "0" :["inactive", "inactive"],
-            "1" :["normal heating", "normal heating"],
-            "2" :["normal ventilation", "normal ventilation"],
-            "3" :["manual heating", "manual heating"],
-            "4" :["post heating", "post heating"],
-            "5" :["post ventilation", "post ventilation"],
-            "6" :["auto heating", "auto heating"],
-        } 
-
-        func = attribut_extender.get(self._internal_name, default_extender)
-        return func(extended_attributes)

@@ -3,164 +3,39 @@ from datetime import datetime
 
 ODOMETER_OPTIONS = [
     "odo",
-    "distanceReset",
-    "distanceStart",
-    "averageSpeedReset",
-    "averageSpeedStart",
-    "distanceZEReset",
-    "drivenTimeZEReset",
-    "drivenTimeReset",
-    "drivenTimeStart",
     "ecoscoretotal",
-    "ecoscorefreewhl",
-    "ecoscorebonusrange",
-    "ecoscoreconst",
-    "ecoscoreaccel",
     "ecoScoreFluentDriving",
     "ecoScoreSpeed",
-    "gasconsumptionstart",
-    "gasconsumptionreset",
-    "gasTankRange",
-    "gasTankLevel",
-    "gasTankLevelPercent",
-    "liquidconsumptionstart",
-    "liquidconsumptionreset",
-    "liquidRangeSkipIndication",
-    "outsideTemperature",
-    "rangeliquid",
     "serviceintervaldays",
-    "serviceintervaldistance",
-    "tanklevelpercent",
-    "tankReserveLamp",
-    "batteryState",
-    "tankLevelAdBlue",
-    "vehicleDataConnectionState",
-    "ignitionstate",
-    "oilLevel"]
+    "serviceintervaldistance"]
 
-LOCATION_OPTIONS = [
-    "positionLat",
-    "positionLong",
-    "positionHeading"]
+LOCATION_OPTIONS = []
 
 TIRE_OPTIONS = [
-    "tirepressureRearLeft",
-    "tirepressureRearRight",
-    "tirepressureFrontRight",
-    "tirepressureFrontLeft",
-    "tirewarninglamp",
-    "tirewarningsrdk",
-    "tirewarningsprw",
-    "tireMarkerFrontRight",
-    "tireMarkerFrontLeft",
-    "tireMarkerRearLeft",
-    "tireMarkerRearRight",
-    "tireWarningRollup",
-    "lastTirepressureTimestamp",
-    "tireTemperatureRearLeft",
-    "tireTemperatureFrontRight",
-    "tireTemperatureRearRight",
-    "tireTemperatureFrontLeft"]
-
-WINDOW_OPTIONS = [
-    "windowstatusrearleft",
-    "windowstatusrearright",
-    "windowstatusfrontright",
-    "windowstatusfrontleft",
-    "windowStatusOverall",
-    "flipWindowStatus"]
-
-DOOR_OPTIONS = [
-    'decklidstatus',
-    'doorStatusOverall',
-    'doorLockStatusOverall',
-    'doorlockstatusgas',
-    'doorlockstatusvehicle',
-    'doorlockstatusfrontleft',
-    'doorlockstatusfrontright',
-    'doorlockstatusrearright',
-    'doorlockstatusrearleft',
-    'doorlockstatusdecklid',
-    'doorstatusrearleft',
-    'doorstatusfrontright',
-    'doorstatusrearright',
-    'doorstatusfrontleft',
-    'rooftopstatus',
-    'sunroofstatus',
-    'engineHoodStatus'
+    "tirewarningsrdk"
 ]
+
+WINDOW_OPTIONS = []
+
+DOOR_OPTIONS = []
 
 ELECTRIC_OPTIONS = [
     'rangeelectric',
-    'chargingactive',
-    'chargingstatus',
-    'chargingPower',
-    'distanceElectricalReset',
-    'distanceElectricalStart',
-    'ecoElectricBatteryTemperature',
     'electricconsumptionstart',
-    'electricconsumptionreset',
-    'endofchargetime',
-    'precondActive',
-    'precondNow',
-    'maxrange',
-    'maxSocLowerLimit',
-    'maxSoc',
-    'selectedChargeProgram',
-    'soc'
+    'soc',
+    'chargingactive',
+    'chargingstatus'
     ]
 
-BINARY_SENSOR_OPTIONS = [
-    'warningwashwater',
-    'warningenginelight',
-    'warningbrakefluid',
-    'warningcoolantlevellow',
-    'parkbrakestatus',
-    #'readingLampFrontRight',
-    #'readingLampFrontLeft',
-    'warningBrakeLiningWear',
-    'warninglowbattery',
-    'starterBatteryState',
-    'liquidRangeCritical',
-    'tankCapOpenLamp',
-    'remoteStartActive',
-    'engineState']
+BINARY_SENSOR_OPTIONS = []
 
-AUX_HEAT_OPTIONS = [
-    'auxheatActive',
-    'auxheatwarnings',
-    'auxheatruntime',
-    'auxheatstatus',
-    'auxheatwarningsPush',
-    'auxheattimeselection',
-    'auxheattime1',
-    'auxheattime2',
-    'auxheattime3']
+AUX_HEAT_OPTIONS = []
 
-PRE_COND_OPTIONS = [
-    'preconditionState',
-    'precondimmediate']
+PRE_COND_OPTIONS = []
 
-REMOTE_START_OPTIONS = [
-    'remoteEngine',
-    'remoteStartEndtime',
-    'remoteStartTemperature']
+REMOTE_START_OPTIONS = []
 
-CAR_ALARM_OPTIONS = [
-    'lastTheftWarning',
-    'towSensor',
-    'theftSystemArmed',
-    'carAlarm',
-    'parkEventType',
-    'parkEventLevel',
-    'carAlarmLastTime',
-    'towProtectionSensorStatus',
-    'theftAlarmActive',
-    'lastTheftWarningReason',
-    'lastParkEvent',
-    'collisionAlarmTimestamp',
-    'interiorSensor',
-    'carAlarmReason']
+CAR_ALARM_OPTIONS = []
 
 
 class Car(object):

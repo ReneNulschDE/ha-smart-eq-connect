@@ -15,7 +15,7 @@ from homeassistant.helpers import (
 SMARTEQ_COMPONENTS = [
     "sensor",
 #    "lock",
-#    "binary_sensor",
+    "binary_sensor",
 #    "device_tracker",
 #    "switch"
 ]
@@ -77,7 +77,29 @@ SERVICE_REFRESH_TOKEN_URL = "refresh_access_token"
 #                   9 invert boolean value - Default: False
 # ] 
 
-BINARY_SENSORS = {}
+BINARY_SENSORS = {
+        "tirewarningsrdk": [    "Tire Warning",
+                                None,
+                                "tires",
+                                "tirewarningsrdk",
+                                "value",
+                                None,
+                                {},
+                                "mdi:car-tire-alert",
+                                "problem",
+                                False],
+        "chargingactive": [    "Charging active",
+                                None,
+                                "electric",
+                                "chargingactive",
+                                "value",
+                                None,
+                                {},
+                                None,
+                                "battery_charging",
+                                False],
+
+}
 
 DEVICE_TRACKER = {}
 
@@ -91,6 +113,8 @@ SENSORS = {
                                 {
                                     'electricconsumptionstart',
                                     'soc',
+                                    'chargingactive',
+                                    'chargingstatus'
                                 },
                                 "mdi:ev-station",
                                 None,

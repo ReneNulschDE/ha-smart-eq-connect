@@ -39,15 +39,23 @@ Depends on your own car or purchased Mercedes Benz licenses.
 
 ### Binary Sensors
 
-* None so far
+* Charging active
+
+* Tire warning
 
 
 ### Sensors
 
 * odometer
- 
+  ```
+    Attributes: Serviceintervaldistance, Serviceintervaldays
+  ```
 
 * Range Electric
+  ```
+    Attributes: electricconsumptionstart, soc, chargingactive, chargingstatus
+
+  ```
 
 
 * State of Charge (soc)
@@ -82,8 +90,7 @@ logger:
 ```
 
 ### Open Items
-* Auto Refresh
-* Clean Up
+* Services for Preconditioning
 
 
 ### Useful links
