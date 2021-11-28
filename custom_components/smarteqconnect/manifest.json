@@ -2,8 +2,8 @@
   "domain": "smarteqconnect",
   "name": "Smart EQ Connect",
   "config_flow": true,
-  "documentation": "https://github.com/ReneNulschDE/smarteqconnect",
-  "issue_tracker": "https://github.com/ReneNulschDE/smarteqconnect/issues",
+  "documentation": "https://github.com/ReneNulschDE/ha-smart-eq-connect",
+  "issue_tracker": "https://github.com/ReneNulschDE/ha-smart-eq-connect/issues",
   "requirements": [],
   "dependencies": [],
   "codeowners": [
