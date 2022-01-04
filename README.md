@@ -5,6 +5,16 @@
 
 
 
+<div class="panel panel-warning">
+**Warning**
+{: .panel-heading}
+<div class="panel-body">
+
+The vendor activated a captacha protection. This component does not work anymore without same additional ![steps](https://community.home-assistant.io/t/smart-eq-connect/356866/12).
+
+</div>
+</div>
+
 Smart EQ Connect platform as a Custom Component for Home Assistant.
 
 
