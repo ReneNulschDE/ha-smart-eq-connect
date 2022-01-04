@@ -1,2 +1,9 @@
-refresh_access_token:
-  description: Refresh the API access token
+preheat_start:
+  description: "Start the pre-heating of a car defined by a vin."
+  fields:
+    vin:
+      description: "vin of the car"
+      example: "Wxxxxxxxxxxxxxx"
+      required: True
+      selector:
+        text:

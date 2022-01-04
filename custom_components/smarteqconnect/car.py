@@ -24,7 +24,8 @@ ELECTRIC_OPTIONS = [
     'electricconsumptionstart',
     'soc',
     'chargingactive',
-    'chargingstatus'
+    'chargingstatus',
+    'precondNow'
     ]
 
 BINARY_SENSOR_OPTIONS = []

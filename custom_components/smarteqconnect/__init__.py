@@ -27,8 +27,10 @@ from .const import (
     DOMAIN,
     LOGGER,
     SMARTEQ_COMPONENTS,
-    Sensor_Config_Fields as scf
-
+    Sensor_Config_Fields as scf,
+    SERVICE_PREHEAT_START,
+    SERVICE_VIN_SCHEMA,
+    CONF_VIN,
 )
 from .car import Car, Features
 from .client import Client
@@ -117,8 +119,12 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry):
             """
             return await smarteq.client.update()
 
-        async def refresh_access_token(call) -> None:
-            await smarteq.client.oauth.async_get_cached_token()
+        async def preheat_start(call) -> None:
+            await smarteq.client.api.start_preheating(call.data.get(CONF_VIN))
+
+        hass.services.async_register(
+            DOMAIN, SERVICE_PREHEAT_START, preheat_start, schema=SERVICE_VIN_SCHEMA
+        )
 
         await smarteq.on_dataload_complete()
 

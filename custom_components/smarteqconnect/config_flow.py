@@ -100,6 +100,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             except MbapiError as error:
                 _LOGGER.error("Request Token Error: %s", errors)
                 errors = error
+            except TypeError as terror:
+                errors = None
+                result = "{}"
 
             if not errors:
                 _LOGGER.debug("token received")

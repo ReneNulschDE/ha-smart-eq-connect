@@ -74,7 +74,13 @@ Depends on your own car or purchased Mercedes Benz licenses.
 
 ### Services
 
-* None so far
+### Services
+* refresh_access_token:
+  Refresh the API access token
+
+* precond_start:
+  Start the preconditioning of a zero emission car defined by a vin.
+
 
 
 ### Switches

@@ -55,6 +55,7 @@ class API:
             "Guid": self._guid,
             "X-ApplicationName": LOGIN_APP_ID_EU,
             "User-Agent": DEVICE_USER_AGENT,
+            "Content-Type": "application/json"
         }
 
         #use_running_session = self._session and not self._session.closed
@@ -88,8 +89,12 @@ class API:
 
     async def get_car_details(self, vin:str) -> list:
         """Get all devices infos associated with an fin."""
-        return await self._request("get", f"/seqc/v0/vehicles/{ vin }/refresh-data")
+        return await self._request("get", f"/seqc/v0/vehicles/{ vin }/refresh-data?requestedData=BOTH")
 
 
     async def get_car_capabilities_commands(self, vin:str) -> list:
         return await self._request("get", f"/v1/vehicle/{vin}/capabilities/commands")
+
+    async def start_preheating(self, vin:str) -> list:
+        body = '{"type" : "immediate"}'
+        return await self._request("post", f"/seqc/v0/vehicles/{vin}/precond/start", data=body)

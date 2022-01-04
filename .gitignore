@@ -110,3 +110,4 @@ sec_*.txt
 /custom_components/smarteqconnect/messages/v*
 /custom_components/smarteqconnect/messages/m*
 /custom_components/smarteqconnect/messages/c*
+/custom_components/smarteqconnect/messages/u*

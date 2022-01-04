@@ -64,6 +64,22 @@ REST_API_BASE = "https://oneapp.microservice.smart.com"
 
 
 SERVICE_REFRESH_TOKEN_URL = "refresh_access_token"
+SERVICE_PREHEAT_START = "preheat_start"
+SERVICE_PREHEAT_START_DEPARTURE_TIME = "preheat_start_departure_time"
+SERVICE_PREHEAT_STOP = "preheat_stop"
+SERVICE_VIN_SCHEMA = vol.Schema({vol.Required(CONF_VIN): cv.string})
+SERVICE_VIN_TIME_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_VIN): cv.string,
+        vol.Required(CONF_TIME): vol.All(vol.Coerce(int), vol.Range(min=0, max=1439))
+    }
+)
+SERVICE_PREHEAT_START_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_VIN): cv.string,
+        vol.Required("type", default=0): vol.All(vol.Coerce(int), vol.Range(min=0, max=1))
+    }
+)
 
 # "internal_name":[ 0 Display_Name
 #                   1 unit_of_measurement,
@@ -98,7 +114,16 @@ BINARY_SENSORS = {
                                 None,
                                 "battery_charging",
                                 False],
-
+        "precondactive": [    "Precond active",
+                                None,
+                                "electric",
+                                "precondNow",
+                                "value",
+                                None,
+                                {},
+                                None,
+                                "radiator",
+                                False],
 }
 
 DEVICE_TRACKER = {}

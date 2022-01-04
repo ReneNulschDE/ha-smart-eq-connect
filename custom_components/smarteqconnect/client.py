@@ -75,6 +75,7 @@ class Client: # pylint: disable-too-few-public-methods
         for car in self.cars:
             LOGGER.debug("Update - Car: %s", car.finorvin)
             car_detail = await self.api.get_car_details(car.finorvin)
+            #self._write_debug_json_output(car_detail, "upd")
             #LOGGER.debug("Update - Car detail: %s", car_detail)
 
             car.odometer = self._get_car_values(
