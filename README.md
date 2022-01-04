@@ -4,7 +4,7 @@
 ![HassFest tests](https://github.com/renenulschde/ha-smart-eq-connect/workflows/Validate%20with%20hassfest/badge.svg)
 
 
-> :warning: **The vendor activated a captacha protection.*** This component does not work anymore without some additional [steps](https://community.home-assistant.io/t/smart-eq-connect/356866/12).
+> :warning: **The vendor activated a captcha protection.*** This component does not work anymore without some additional [steps](https://community.home-assistant.io/t/smart-eq-connect/356866/12).
 
 
 Smart EQ Connect platform as a Custom Component for Home Assistant.
