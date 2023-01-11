@@ -1,4 +1,22 @@
 
+:bangbang: | This repo is not maintained anymore and archived. You can try the [MBAPI2020 component](https://github.com/ReneNulschDE/mbapi2020) to integrate your cars. We have at least some users where this is working. Thanks for your support.
+:---: | :---
+
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
 
 # Smart EQ Connect
 ![HassFest tests](https://github.com/renenulschde/ha-smart-eq-connect/workflows/Validate%20with%20hassfest/badge.svg)
