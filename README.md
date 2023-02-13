@@ -1,23 +1,4 @@
 
-:bangbang: | This repo is not maintained anymore and archived. You can try the [MBAPI2020 component](https://github.com/ReneNulschDE/mbapi2020) to integrate your cars. We have at least some users where this is working. Thanks for your support.
-:---: | :---
-
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-
 # Smart EQ Connect
 ![HassFest tests](https://github.com/renenulschde/ha-smart-eq-connect/workflows/Validate%20with%20hassfest/badge.svg)
 
@@ -46,7 +27,14 @@ IMPORTANT:
 * Restart HA, Refresh your HA Browser window
 ### Configuration
 
-Use the "Add Integration" in Home Assistant and select "Smart EQ Connect".
+Use the "Add Integration" in Home Assistant and select "Smart EQ Connect" and follow the following steps:
+
+1. Put in your email address in the component setup.
+2. When the second "PIN" screen comes up, do the following:
+3. Goto the [mercedes benz website](https://www.mercedes-benz.de/?group=all&subgroup=see-all&view=BODYTYPE) (NOT the smart website) 
+4. Click on Login in in the upper right corner and type your smart/mb email address (the same like in step 1)
+5. On the next screen select "Login with TAN"
+6. You will receive now a TAN via email. Use this TAN in the dialog out of Step 2.
 
 ### Optional configuration values
 
