@@ -3,7 +3,7 @@
 ![HassFest tests](https://github.com/renenulschde/ha-smart-eq-connect/workflows/Validate%20with%20hassfest/badge.svg)
 
 
-> :warning: **The vendor activated a captcha protection.*** This component does not work anymore without some additional [steps](https://community.home-assistant.io/t/smart-eq-connect/356866/12).
+> :warning: **The vendor activated a captcha protection.*** This component does not work anymore without some additional steps. Read the configuration area carefully and check [the forum](https://community.home-assistant.io/t/smart-eq-connect/356866/12) for additional context.
 
 
 Smart EQ Connect platform as a Custom Component for Home Assistant.
@@ -25,8 +25,8 @@ IMPORTANT:
 * Download the folder custom_component and copy it into your Home-Assistant config folder. 
 * [How to install a custom component?](https://www.google.com/search?q=how+to+install+custom+components+home+assistant) 
 * Restart HA, Refresh your HA Browser window
-### Configuration
 
+### Configuration
 Use the "Add Integration" in Home Assistant and select "Smart EQ Connect" and follow the following steps:
 
 1. Put in your email address in the component setup.
