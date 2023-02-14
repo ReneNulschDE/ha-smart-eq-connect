@@ -10,5 +10,9 @@
     "@ReneNulschDE"
   ],
   "version": "0.0.4",
-  "iot_class": "cloud_polling"
+  "iot_class": "cloud_polling",
+  "integration_type": "hub",
+  "loggers": [
+    "custom_components.smarteqconnect"
+  ]
 }
