@@ -1,17 +1,16 @@
 """The Smart EQ connect 2021 integration."""
 import asyncio
-from datetime import datetime, timedelta
 import time
+from datetime import datetime, timedelta
 from typing import Any
 
+import homeassistant.helpers.device_registry as dr
 import voluptuous as vol
-
 from homeassistant.config_entries import SOURCE_REAUTH, ConfigEntry
 from homeassistant.const import LENGTH_KILOMETERS, LENGTH_MILES
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers import aiohttp_client
-import homeassistant.helpers.device_registry as dr
 from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import slugify
@@ -28,8 +27,8 @@ from .const import (
     SERVICE_PREHEAT_START,
     SERVICE_VIN_SCHEMA,
     SMARTEQ_COMPONENTS,
-    Sensor_Config_Fields as scf,
 )
+from .const import Sensor_Config_Fields as scf
 from .errors import WebsocketError
 
 CONFIG_SCHEMA = vol.Schema({DOMAIN: vol.Schema({})}, extra=vol.ALLOW_EXTRA)

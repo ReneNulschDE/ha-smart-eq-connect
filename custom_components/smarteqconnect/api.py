@@ -3,18 +3,17 @@ import asyncio
 import json
 import logging
 import uuid
-
 from typing import Optional
 
 from aiohttp import ClientSession, ClientTimeout
 from aiohttp.client_exceptions import ClientError
 
 from .const import (
-    REST_API_BASE,
     DEVICE_USER_AGENT,
     LOGIN_APP_ID_EU,
+    REST_API_BASE,
+    SYSTEM_PROXY,
     VERIFY_SSL,
-    SYSTEM_PROXY
 )
 from .errors import RequestError
 from .oauth import Oauth
@@ -28,12 +27,7 @@ DEFAULT_TIMEOUT: int = 30
 class API:
     """Define the API object."""
 
-    def __init__(
-        self,
-        oauth: Oauth,
-        session: Optional[ClientSession] = None,
-        region: str = None
-    ) -> None:
+    def __init__(self, oauth: Oauth, session: Optional[ClientSession] = None, region: str = None) -> None:
         """Initialize."""
         self._session: ClientSession = session
         self._oauth: Oauth = oauth
@@ -55,10 +49,10 @@ class API:
             "Guid": self._guid,
             "X-ApplicationName": LOGIN_APP_ID_EU,
             "User-Agent": DEVICE_USER_AGENT,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
 
-        #use_running_session = self._session and not self._session.closed
+        # use_running_session = self._session and not self._session.closed
 
         use_running_session = False
         LOGGER.debug("API - Request - Running Session : %s", use_running_session)
@@ -83,18 +77,19 @@ class API:
         """Get all devices associated with an API key."""
         return await self._request("get", "/seqc/v0/users/current")
 
-    async def get_car_details_init(self, vin:str) -> list:
+    async def get_car_details_init(self, vin: str) -> list:
         """Get all devices infos associated with an fin."""
-        return await self._request("get", f"/seqc/v0/vehicles/{ vin }/init-data?requestedData=BOTH&countryCode=DE&locale=de-DE")
+        return await self._request(
+            "get", f"/seqc/v0/vehicles/{ vin }/init-data?requestedData=BOTH&countryCode=DE&locale=de-DE"
+        )
 
-    async def get_car_details(self, vin:str) -> list:
+    async def get_car_details(self, vin: str) -> list:
         """Get all devices infos associated with an fin."""
         return await self._request("get", f"/seqc/v0/vehicles/{ vin }/refresh-data?requestedData=BOTH")
 
-
-    async def get_car_capabilities_commands(self, vin:str) -> list:
+    async def get_car_capabilities_commands(self, vin: str) -> list:
         return await self._request("get", f"/v1/vehicle/{vin}/capabilities/commands")
 
-    async def start_preheating(self, vin:str) -> list:
+    async def start_preheating(self, vin: str) -> list:
         body = '{"type" : "immediate"}'
         return await self._request("post", f"/seqc/v0/vehicles/{vin}/precond/start", data=body)

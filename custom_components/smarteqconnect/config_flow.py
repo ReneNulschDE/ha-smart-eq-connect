@@ -3,17 +3,13 @@ import logging
 import uuid
 
 import voluptuous as vol
-
 from homeassistant import config_entries
 from homeassistant.config_entries import SOURCE_REAUTH
-from homeassistant.const import (
-    CONF_PASSWORD,
-    CONF_USERNAME,
-    CONF_SOURCE
-)
+from homeassistant.const import CONF_PASSWORD, CONF_SOURCE, CONF_USERNAME
 from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
 
+from .client import Client
 from .const import (  # pylint:disable=unused-import
     CONF_ALLOWED_REGIONS,
     CONF_COUNTRY_CODE,
@@ -21,21 +17,17 @@ from .const import (  # pylint:disable=unused-import
     CONF_EXCLUDED_CARS,
     CONF_LOCALE,
     CONF_REGION,
-    DOMAIN,
-    DEFAULT_LOCALE,
     DEFAULT_COUNTRY_CODE,
-    VERIFY_SSL
+    DEFAULT_LOCALE,
+    DOMAIN,
+    VERIFY_SSL,
 )
-from .client import Client
 from .errors import MbapiError
 
 _LOGGER = logging.getLogger(__name__)
 
 SCHEMA_STEP_USER = vol.Schema(
-    {
-        vol.Required(CONF_USERNAME): str,
-        vol.Required(CONF_REGION): vol.In(CONF_ALLOWED_REGIONS)
-    }
+    {vol.Required(CONF_USERNAME): str, vol.Required(CONF_REGION): vol.In(CONF_ALLOWED_REGIONS)}
 )
 
 SCHEMA_STEP_PIN = vol.Schema({vol.Required(CONF_PASSWORD): str})
@@ -54,7 +46,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self.reauth_mode = False
         self.session = None
         self.client = None
-
 
     async def async_step_user(self, user_input=None):
         """Handle the initial step."""
@@ -81,9 +72,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             else:
                 _LOGGER.error("Request Pin Error: %s", errors)
 
-        return self.async_show_form(
-            step_id="user", data_schema=SCHEMA_STEP_USER, errors= "Error unknow" #errors
-        )
+        return self.async_show_form(step_id="user", data_schema=SCHEMA_STEP_USER, errors="Error unknow")  # errors
 
     async def async_step_pin(self, user_input=None):
         """Handle the step where the user inputs his/her station."""
@@ -95,8 +84,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             pin = user_input[CONF_PASSWORD]
 
             try:
-                result = await self.client.oauth.request_access_token(
-                    self.data[CONF_USERNAME], pin)
+                result = await self.client.oauth.request_access_token(self.data[CONF_USERNAME], pin)
             except MbapiError as error:
                 _LOGGER.error("Request Token Error: %s", errors)
                 errors = error
@@ -109,15 +97,12 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 self.data["token"] = result
 
                 if self.reauth_mode:
-                    self.hass.async_create_task(
-                        self.hass.config_entries.async_reload(self._existing_entry.entry_id)
-                    )
+                    self.hass.async_create_task(self.hass.config_entries.async_reload(self._existing_entry.entry_id))
                     return self.async_abort(reason="reauth_successful")
 
                 return self.async_create_entry(title=DOMAIN, data=self.data)
 
         return self.async_show_form(step_id="pin", data_schema=SCHEMA_STEP_PIN, errors=errors)
-
 
     async def async_step_reauth(self, user_input=None):
         """Get new tokens for a config entry that can't authenticate."""
@@ -125,9 +110,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self.reauth_mode = True
         self._existing_entry = user_input
 
-        return self.async_show_form(
-            step_id="user", data_schema=SCHEMA_STEP_USER, errors= "Error unknow" #errors
-        )
+        return self.async_show_form(step_id="user", data_schema=SCHEMA_STEP_USER, errors="Error unknow")  # errors
 
     @staticmethod
     @callback
@@ -164,7 +147,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                     vol.Optional(CONF_COUNTRY_CODE, default=country_code): str,
                     vol.Optional(CONF_LOCALE, default=locale): str,
                     vol.Optional(CONF_EXCLUDED_CARS, default=excluded_cars): str,
-                    vol.Optional(CONF_DEBUG_FILE_SAVE, default=save_debug_files): bool
+                    vol.Optional(CONF_DEBUG_FILE_SAVE, default=save_debug_files): bool,
                 }
-            )
+            ),
         )

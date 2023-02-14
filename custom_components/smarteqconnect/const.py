@@ -1,23 +1,17 @@
 """Constants for the Smart EQ connect 2021 integration."""
-from enum import Enum
 import logging
+from enum import Enum
 
 import voluptuous as vol
-
-from homeassistant.const import (
-    LENGTH_KILOMETERS, PERCENTAGE)
-
-from homeassistant.helpers import (
-    config_validation as cv,
-)
-
+from homeassistant.const import LENGTH_KILOMETERS, PERCENTAGE
+from homeassistant.helpers import config_validation as cv
 
 SMARTEQ_COMPONENTS = [
     "sensor",
-#    "lock",
+    #    "lock",
     "binary_sensor",
-#    "device_tracker",
-#    "switch"
+    #    "device_tracker",
+    #    "switch"
 ]
 
 REGION_EUROPE = "Europe"
@@ -49,10 +43,10 @@ DEVICE_USER_AGENT = "Device: iPhone13,3; OS-version: iOS_15.0.2; App-Name: smart
 SYSTEM_PROXY = None
 PROXIES = {}
 
-#SYSTEM_PROXY = "http://localhost:8080"
-#PROXIES = {
+# SYSTEM_PROXY = "http://localhost:8080"
+# PROXIES = {
 #  'https': SYSTEM_PROXY,
-#}
+# }
 VERIFY_SSL = True
 
 ATTR_MB_MANUFACTURER = "Mercedes Benz"
@@ -69,15 +63,12 @@ SERVICE_PREHEAT_START_DEPARTURE_TIME = "preheat_start_departure_time"
 SERVICE_PREHEAT_STOP = "preheat_stop"
 SERVICE_VIN_SCHEMA = vol.Schema({vol.Required(CONF_VIN): cv.string})
 SERVICE_VIN_TIME_SCHEMA = vol.Schema(
-    {
-        vol.Required(CONF_VIN): cv.string,
-        vol.Required(CONF_TIME): vol.All(vol.Coerce(int), vol.Range(min=0, max=1439))
-    }
+    {vol.Required(CONF_VIN): cv.string, vol.Required(CONF_TIME): vol.All(vol.Coerce(int), vol.Range(min=0, max=1439))}
 )
 SERVICE_PREHEAT_START_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_VIN): cv.string,
-        vol.Required("type", default=0): vol.All(vol.Coerce(int), vol.Range(min=0, max=1))
+        vol.Required("type", default=0): vol.All(vol.Coerce(int), vol.Range(min=0, max=1)),
     }
 )
 
@@ -91,87 +82,69 @@ SERVICE_PREHEAT_START_SCHEMA = vol.Schema(
 #                   7 icon
 #                   8 device_class
 #                   9 invert boolean value - Default: False
-# ] 
+# ]
 
 BINARY_SENSORS = {
-        "tirewarningsrdk": [    "Tire Warning",
-                                None,
-                                "tires",
-                                "tirewarningsrdk",
-                                "value",
-                                None,
-                                {},
-                                "mdi:car-tire-alert",
-                                "problem",
-                                False],
-        "chargingactive": [    "Charging active",
-                                None,
-                                "electric",
-                                "chargingactive",
-                                "value",
-                                None,
-                                {},
-                                None,
-                                "battery_charging",
-                                False],
-        "precondactive": [    "Precond active",
-                                None,
-                                "electric",
-                                "precondNow",
-                                "value",
-                                None,
-                                {},
-                                None,
-                                "radiator",
-                                False],
+    "tirewarningsrdk": [
+        "Tire Warning",
+        None,
+        "tires",
+        "tirewarningsrdk",
+        "value",
+        None,
+        {},
+        "mdi:car-tire-alert",
+        "problem",
+        False,
+    ],
+    "chargingactive": [
+        "Charging active",
+        None,
+        "electric",
+        "chargingactive",
+        "value",
+        None,
+        {},
+        None,
+        "battery_charging",
+        False,
+    ],
+    "precondactive": ["Precond active", None, "electric", "precondNow", "value", None, {}, None, "radiator", False],
 }
 
 DEVICE_TRACKER = {}
 
 SENSORS = {
-    "rangeElectricKm": [        "Range Electric",
-                                LENGTH_KILOMETERS,
-                                "electric",
-                                "rangeelectric",
-                                "value",
-                                None,
-                                {
-                                    'electricconsumptionstart',
-                                    'soc',
-                                    'chargingactive',
-                                    'chargingstatus'
-                                },
-                                "mdi:ev-station",
-                                None,
-                                False],
-                                
-    "soc":                  ["State of Charge",
-                             PERCENTAGE,
-                             "electric",
-                             "soc",
-                             "value",
-                             None,
-                             {},
-                             "mdi:ev-station",
-                             None,
-                             False],
-
-    "odometer": [               "Odometer",
-                                LENGTH_KILOMETERS,
-                                "odometer",
-                                "odo",
-                                "value",
-                                None,
-                                {
-                                    "ecoScoreFluentDriving",
-                                    "ecoScoreSpeed",
-                                    "ecoscoretotal",
-                                    "serviceintervaldistance",
-                                },
-                                "mdi:car-cruise-control",
-                                None,
-                                False],
-
+    "rangeElectricKm": [
+        "Range Electric",
+        LENGTH_KILOMETERS,
+        "electric",
+        "rangeelectric",
+        "value",
+        None,
+        {"electricconsumptionstart", "soc", "chargingactive", "chargingstatus"},
+        "mdi:ev-station",
+        None,
+        False,
+    ],
+    "soc": ["State of Charge", PERCENTAGE, "electric", "soc", "value", None, {}, "mdi:ev-station", None, False],
+    "odometer": [
+        "Odometer",
+        LENGTH_KILOMETERS,
+        "odometer",
+        "odo",
+        "value",
+        None,
+        {
+            "ecoScoreFluentDriving",
+            "ecoScoreSpeed",
+            "ecoscoretotal",
+            "serviceintervaldistance",
+        },
+        "mdi:car-cruise-control",
+        None,
+        False,
+    ],
 }
 
 LOCKS = {}
@@ -180,17 +153,17 @@ SWITCHES = {}
 
 
 class Sensor_Config_Fields(Enum):
-# "internal_name":[ 0 Display_Name
-#                   1 unit_of_measurement,
-#                   2 object in car.py
-#                   3 attribute in car.py
-#                   4 value field
-#                   5 unused --> None (for capabilities check in the future)
-#                   6 [list of extended attributes]
-#                   7 icon
-#                   8 device_class
-#                   9 invert boolean value - Default: False
-# ] 
+    # "internal_name":[ 0 Display_Name
+    #                   1 unit_of_measurement,
+    #                   2 object in car.py
+    #                   3 attribute in car.py
+    #                   4 value field
+    #                   5 unused --> None (for capabilities check in the future)
+    #                   6 [list of extended attributes]
+    #                   7 icon
+    #                   8 device_class
+    #                   9 invert boolean value - Default: False
+    # ]
     DISPLAY_NAME = 0
     UNIT_OF_MEASUREMENT = 1
     OBJECT_NAME = 2
@@ -198,6 +171,6 @@ class Sensor_Config_Fields(Enum):
     VALUE_FIELD_NAME = 4
     CAPABILITIES_LIST = 5
     EXTENDED_ATTRIBUTE_LIST = 6
-    ICON = 7 
+    ICON = 7
     DEVICE_CLASS = 8
     FLIP_RESULT = 9

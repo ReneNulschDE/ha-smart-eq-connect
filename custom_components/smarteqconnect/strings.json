@@ -19,7 +19,7 @@
                 }
             },
             "pin": {
-                "description": "You have received a PIN code via email. Please enter the PIN code (six numbers)",
+                "description": "Check the readme on how to get the PIN. Please enter the PIN code (six numbers)",
                 "title": "Connection setup - PIN",
                 "data": {
                     "password": "PIN"
@@ -51,6 +51,6 @@
         "info": {
             "api_endpoint_reachable": "API endpoint reachable"
         }
-    },    
+    },
     "title": "Smart EQ Connect"
 }
