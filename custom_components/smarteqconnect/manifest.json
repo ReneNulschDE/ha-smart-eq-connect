@@ -9,7 +9,7 @@
   "codeowners": [
     "@ReneNulschDE"
   ],
-  "version": "0.0.5",
+  "version": "0.4.1",
   "iot_class": "cloud_polling",
   "integration_type": "hub",
   "loggers": [
