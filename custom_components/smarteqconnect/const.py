@@ -47,7 +47,7 @@ PROXIES = {}
 # PROXIES = {
 #  'https': SYSTEM_PROXY,
 # }
-VERIFY_SSL = True
+VERIFY_SSL = False
 
 ATTR_MB_MANUFACTURER = "Mercedes Benz"
 LOGIN_APP_ID_EU = "70d89501-938c-4bec-82d0-6abb550b0825"
