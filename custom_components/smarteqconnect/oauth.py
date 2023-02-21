@@ -4,7 +4,6 @@ import hashlib
 import json
 import logging
 import time
-import urllib.parse
 import uuid
 from os import urandom
 from typing import Optional
@@ -73,7 +72,7 @@ class Oauth:  # pylint: disable-too-few-public-methods
         # we need the cockies and the resume url
         async with self._session.request(
             "GET",
-            f"{ LOGIN_BASE_URI }/as/authorization.oauth2?client_id={ LOGIN_APP_ID_EU }&response_type=code&scope=openid+profile+email+phone+ciam-uid+offline_access&redirect_uri=https://oneapp.microservice.smart.com&code_challenge={ self.code_challenge }&code_challenge_method=S256",
+            f"{ LOGIN_BASE_URI }/as/authorization.oauth2?client_id={ LOGIN_APP_ID_EU }&response_type=code&scope=openid+profile+email+phone+ciam-uid+offline_access&redirect_uri=https://oneapp.microservice.smart.mercedes-benz.com&code_challenge={ self.code_challenge }&code_challenge_method=S256",
             headers=headers,
             proxy=SYSTEM_PROXY,
             verify_ssl=VERIFY_SSL,
@@ -194,7 +193,7 @@ class Oauth:  # pylint: disable-too-few-public-methods
             f"{ LOGIN_BASE_URI }/as/token.oauth2",
             data="grant_type=authorization_code&code="
             + token
-            + "&redirect_uri=https%3A%2F%2Foneapp.microservice.smart.com&code_verifier="
+            + "&redirect_uri=https%3A%2F%2Foneapp.microservice.smart.mercedes-benz.com&code_verifier="
             + self.code_verifier
             + "&client_id=70d89501-938c-4bec-82d0-6abb550b0825",
             headers=headers,
@@ -282,26 +281,6 @@ class Oauth:  # pylint: disable-too-few-public-methods
             header["X-ApplicationName"] = LOGIN_APP_ID_EU
 
         return header
-
-    def _get_restapi_base_url(self) -> str:
-        if self._region == REGION_EUROPE:
-            return REST_API_BASE
-
-        if self._region == REGION_NORAM:
-            return REST_API_BASE_NA
-
-        if self._region == REGION_APAC:
-            return REST_API_BASE_PA
-
-    def _get_login_base_url(self) -> str:
-        if self._region == REGION_EUROPE:
-            return LOGIN_BASE_URI
-
-        if self._region == REGION_NORAM:
-            return LOGIN_BASE_URI_NA
-
-        if self._region == REGION_APAC:
-            return LOGIN_BASE_URI_PA
 
     def _random_string(self, length=64):
         """Generate a random string of fixed length"""

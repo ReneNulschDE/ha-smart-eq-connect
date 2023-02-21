@@ -47,14 +47,14 @@ PROXIES = {}
 # PROXIES = {
 #  'https': SYSTEM_PROXY,
 # }
-VERIFY_SSL = False
+VERIFY_SSL = True
 
 ATTR_MB_MANUFACTURER = "Mercedes Benz"
 LOGIN_APP_ID_EU = "70d89501-938c-4bec-82d0-6abb550b0825"
 LOGIN_BASE_URI = "https://id.mercedes-benz.com"
 LOGIN_BASE_URI_NA = "https://id.mercedes-benz.com"
 LOGIN_BASE_URI_PA = "https://id.mercedes-benz.com"
-REST_API_BASE = "https://oneapp.microservice.smart.com"
+REST_API_BASE = "https://oneapp.microservice.smart.mercedes-benz.com"
 
 
 SERVICE_REFRESH_TOKEN_URL = "refresh_access_token"
