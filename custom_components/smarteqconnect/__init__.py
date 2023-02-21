@@ -252,7 +252,7 @@ class SmartEQEntity(Entity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement."""
-        if self._unit == LENGTH_KILOMETERS and not self._hass.config.units is US_CUSTOMARY_SYSTEM:
+        if self._unit == LENGTH_KILOMETERS and self._hass.config.units is US_CUSTOMARY_SYSTEM:
             return LENGTH_MILES
         else:
             return self._unit
