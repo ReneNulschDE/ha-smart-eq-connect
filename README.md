@@ -3,7 +3,8 @@
 ![HassFest tests](https://github.com/renenulschde/ha-smart-eq-connect/workflows/Validate%20with%20hassfest/badge.svg)
 
 
-> :warning: **The vendor activated a captcha protection.*** This component does not work anymore without some additional steps. Read the configuration area carefully and check [the forum](https://community.home-assistant.io/t/smart-eq-connect/356866/12) for additional context.
+> :warning: **This component is not maintained anymore.** Please try to use the [Mercedes component MBAPI2020](https://github.com/ReneNulschDE/mbapi2020).
+
 
 
 Smart EQ Connect platform as a Custom Component for Home Assistant.
