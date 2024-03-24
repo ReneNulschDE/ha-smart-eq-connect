@@ -1,6 +1,5 @@
 
 # Smart EQ Connect
-![HassFest tests](https://github.com/renenulschde/ha-smart-eq-connect/workflows/Validate%20with%20hassfest/badge.svg)
 
 
 > :warning: **This component is not maintained anymore.** Please try to use the [Mercedes component MBAPI2020](https://github.com/ReneNulschDE/mbapi2020).
